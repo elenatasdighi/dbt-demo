@@ -1,37 +1,23 @@
-
-# Name your project! Project names should contain only lowercase characters
-# and underscores. A good package name should reflect your organization's
-# name or the intended use of these models
-name: 'my_new_project'
+name: my_project
 version: '1.0.0'
+config-version: 2
 
-# This setting configures which "profile" dbt uses for this project. For dbt Cloud,
-# you can leave this as "default"
-profile: 'default'
+# Set the profile to use for this project
+profile: my_dbt_profile
 
-# These configurations specify where dbt should look for different types of files.
-# The `source-paths` config, for example, states that models in this project can be
-# found in the "models/" directory. You probably won't need to change these!
-source-paths: ["models"]
-analysis-paths: ["analysis"] 
-test-paths: ["tests"]
-data-paths: ["data"]
-macro-paths: ["macros"]
+# Define your sources and their associated directories
 
-target-path: "target"  # directory which will store compiled SQL files
-clean-targets:         # directories to be removed by `dbt clean`
-    - "target"
-    - "dbt_modules"
-
-
-# Configuring models
-# Full documentation: https://docs.getdbt.com/docs/configuring-models
-
-# In this example config, we tell dbt to build all models in the example/ directory
-# as tables. These settings can be overridden in the individual model files
-# using the `{{ config(...) }}` macro.
+# Set the schema that your models will be created in
+# Replace 'my_schema' with the name of your target schema
+# Note that this schema will be created automatically by dbt
+# if it doesn't already exist
 models:
-  my_new_project:
-      # Applies to all files under models/example/
-      example:
-          materialized: table
+  my_schema:
+    # Set the materialization method to use for all models
+    # Replace 'snowflake' with the name of your database type
+    # and 'view' with the type of materialization you want to use
+    # Other options include 'table', 'ephemeral', 'incremental', etc.
+    materialized: view
+    # Set the database where your models will be created
+    # Replace 'my_database' with the name of your target database
+    database: my_database
